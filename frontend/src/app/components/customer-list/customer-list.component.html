@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="header">
+    <h1>Gerenciamento de Clientes</h1>
+    <a routerLink="/customers/new" class="btn btn-primary">+ Novo Cliente</a>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Carregando clientes...
+  </div>
+
+  <div *ngIf="!loading && customers.length === 0" class="no-data">
+    Nenhum cliente encontrado
+  </div>
+
+  <table *ngIf="!loading && customers.length > 0" class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>CPF</th>
+        <th>Endereço</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.id }}</td>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.phone }}</td>
+        <td>{{ customer.cpf }}</td>
+        <td>{{ customer.address }}</td>
+        <td>
+          <a [routerLink]="['/customers', customer.id, 'edit']" class="btn btn-primary">Editar</a>
+          <button (click)="delete(customer.id)" class="btn btn-danger">Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

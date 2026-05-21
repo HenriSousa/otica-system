@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="form-header">
+    <h1>{{ isEditMode ? 'Editar Cliente' : 'Novo Cliente' }}</h1>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Carregando...
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="!loading" class="form">
+    <div class="form-group">
+      <label for="name">Nome *</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Digite o nome do cliente"
+      />
+      <div *ngIf="name?.touched && name?.invalid" class="error">
+        <span *ngIf="name?.errors?.['required']">Nome é obrigatório</span>
+        <span *ngIf="name?.errors?.['minlength']">Nome deve ter no mínimo 3 caracteres</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Telefone *</label>
+      <input
+        type="tel"
+        id="phone"
+        formControlName="phone"
+        placeholder="Digite o telefone"
+      />
+      <div *ngIf="phone?.touched && phone?.invalid" class="error">
+        <span *ngIf="phone?.errors?.['required']">Telefone é obrigatório</span>
+        <span *ngIf="phone?.errors?.['minlength']">Telefone deve ter no mínimo 10 dígitos</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cpf">CPF *</label>
+      <input
+        type="text"
+        id="cpf"
+        formControlName="cpf"
+        placeholder="Digite o CPF (apenas números)"
+      />
+      <div *ngIf="cpf?.touched && cpf?.invalid" class="error">
+        <span *ngIf="cpf?.errors?.['required']">CPF é obrigatório</span>
+        <span *ngIf="cpf?.errors?.['pattern']">CPF deve conter 11 dígitos</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="birthDate">Data de Nascimento</label>
+      <input
+        type="date"
+        id="birthDate"
+        formControlName="birthDate"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="address">Endereço *</label>
+      <input
+        type="text"
+        id="address"
+        formControlName="address"
+        placeholder="Digite o endereço completo"
+      />
+      <div *ngIf="address?.touched && address?.invalid" class="error">
+        <span *ngIf="address?.errors?.['required']">Endereço é obrigatório</span>
+        <span *ngIf="address?.errors?.['minlength']">Endereço deve ter no mínimo 5 caracteres</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="neighborhood">Bairro</label>
+      <input
+        type="text"
+        id="neighborhood"
+        formControlName="neighborhood"
+        placeholder="Digite o bairro"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="referencePoint">Ponto de Referência</label>
+      <textarea
+        id="referencePoint"
+        formControlName="referencePoint"
+        placeholder="Digite o ponto de referência"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="submitting">
+        {{ submitting ? 'Processando...' : (isEditMode ? 'Atualizar' : 'Criar') }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
