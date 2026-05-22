@@ -31,4 +31,8 @@ export class CustomerService {
   findAll(): Observable<Customer[]> {
     return this.http.get<Customer[]>(this.apiUrl);
   }
+
+  findByCpf(cpf: string): Observable<Customer> {
+    return this.http.get<Customer>(`${this.apiUrl}/cpf?cpf=${encodeURIComponent(cpf)}`);
+  }
 }

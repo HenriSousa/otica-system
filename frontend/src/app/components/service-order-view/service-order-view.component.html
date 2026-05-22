@@ -1,0 +1,194 @@
+<div class="container so-container">
+  <div class="form-header">
+    <div>
+      <h1>Visualizar Ordem de Serviço</h1>
+      <p>Detalhes da ordem de serviço mantidos apenas para consulta.</p>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" type="button" (click)="back()">Voltar</button>
+      <button class="btn btn-primary" type="button" (click)="edit()" [disabled]="!order">Editar</button>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <div *ngIf="loading" class="loading">Carregando...</div>
+
+  <section *ngIf="order && !loading" class="form card">
+    <div class="section-title">
+      <h2>Dados do Cliente</h2>
+    </div>
+    <div class="field-grid">
+      <div class="form-group">
+        <label>CPF</label>
+        <span>{{ order.customerCpf }}</span>
+      </div>
+      <div class="form-group">
+        <label>Nome</label>
+        <span>{{ order.customerName }}</span>
+      </div>
+      <div class="form-group">
+        <label>Telefone</label>
+        <span>{{ order.customerPhone }}</span>
+      </div>
+      <div class="form-group">
+        <label>RG</label>
+        <span>{{ order.customerRg || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Data de Nascimento</label>
+        <span>{{ order.customerBirthDate || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Endereço</label>
+        <span>{{ order.customerAddress }}</span>
+      </div>
+      <div class="form-group">
+        <label>Bairro</label>
+        <span>{{ order.customerNeighborhood || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Ponto de Referência</label>
+        <span>{{ order.customerReferencePoint || '—' }}</span>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>Dados da OS</h2>
+    </div>
+    <div class="field-grid two-columns">
+      <div class="form-group">
+        <label>Data de Emissão</label>
+        <span>{{ order.issueDate || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Data de Entrega</label>
+        <span>{{ order.deliveryDate || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>AD</label>
+        <span>{{ order.ad || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>DP</label>
+        <span>{{ order.dp || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>DNP</label>
+        <span>{{ order.dnp || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Tipo de Lente</label>
+        <span>{{ order.lensType || '—' }}</span>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>Receita Óptica</h2>
+    </div>
+    <div class="table-responsive">
+      <table class="optical-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Esférico</th>
+            <th>Cilindro</th>
+            <th>Eixo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>OD</td>
+            <td>{{ order.rightEyeSphere || '—' }}</td>
+            <td>{{ order.rightEyeCylinder || '—' }}</td>
+            <td>{{ order.rightEyeAxis || '—' }}</td>
+          </tr>
+          <tr>
+            <td>OE</td>
+            <td>{{ order.leftEyeSphere || '—' }}</td>
+            <td>{{ order.leftEyeCylinder || '—' }}</td>
+            <td>{{ order.leftEyeAxis || '—' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">
+      <h2>Armação</h2>
+    </div>
+    <div class="field-grid two-columns">
+      <div class="form-group">
+        <label>Tipo</label>
+        <span>{{ order.frameType || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Marca</label>
+        <span>{{ order.frameBrand || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Referência</label>
+        <span>{{ order.frameReference || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Cor</label>
+        <span>{{ order.frameColor || '—' }}</span>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>Financeiro</h2>
+    </div>
+    <div class="field-grid two-columns">
+      <div class="form-group">
+        <label>Valor Armação</label>
+        <span>{{ order.frameValue ?? '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Valor Lente</label>
+        <span>{{ order.lensValue ?? '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Valor Óculos Solar</label>
+        <span>{{ order.sunglassesValue ?? '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Valor Conserto</label>
+        <span>{{ order.repairValue ?? '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Outros</label>
+        <span>{{ order.otherValue ?? '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Valor Total</label>
+        <span>{{ order.totalValue ?? '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Entrada</label>
+        <span>{{ order.downPayment ?? '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Saldo</label>
+        <span>{{ order.remainingBalance ?? '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Forma de Pagamento</label>
+        <span>{{ order.paymentMethod || '—' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Status da OS</label>
+        <span>{{ order.status || '—' }}</span>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>Observações</h2>
+    </div>
+    <div class="form-group">
+      <span>{{ order.observations || 'Nenhuma observação registrada.' }}</span>
+    </div>
+    <div class="form-group">
+      <label>Assinatura</label>
+      <span>{{ order.signature || '—' }}</span>
+    </div>
+  </section>
+</div>

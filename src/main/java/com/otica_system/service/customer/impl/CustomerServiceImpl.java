@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,6 +71,20 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
         return toDTO(customer);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<CustomerDTO> findByCpfOptional(String cpf) {
+        return repository.findByCpf(cpf).map(this::toDTO);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CustomerDTO findByCpf(String cpf) {
+        return repository.findByCpf(cpf)
+                .map(this::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with CPF: " + cpf));
     }
 
     @Override

@@ -1,0 +1,162 @@
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+.list-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.list-header p {
+  margin: 0.25rem 0 0;
+  color: #5f6368;
+}
+
+.search-card,
+.table-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+}
+
+.search-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(220px, 2.5fr) auto auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.search-row label {
+  color: #333;
+  font-weight: 600;
+}
+
+.search-row input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #c7c7c7;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.95rem 0.8rem;
+  border-bottom: 1px solid #ececec;
+}
+
+th {
+  color: #565656;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+tbody tr:hover {
+  background: #fbfbfb;
+}
+
+.actions-cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+button {
+  min-height: 44px;
+  padding: 0 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary {
+  background: #0b63ce;
+  color: white;
+}
+
+.secondary {
+  background: #f1f5fb;
+  color: #0b63ce;
+}
+
+.ghost {
+  background: transparent;
+  color: #0b63ce;
+  border: 1px solid #c7d5f0;
+}
+
+.danger {
+  background: #e26060;
+  color: white;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.status-label {
+  font-weight: 700;
+  color: #333;
+}
+
+.loading {
+  color: #0b63ce;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 840px) {
+  .search-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 660px) {
+  .list-header,
+  .search-card,
+  .table-card {
+    padding: 0.85rem;
+  }
+
+  th,
+  td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  table {
+    min-width: 100%;
+  }
+}

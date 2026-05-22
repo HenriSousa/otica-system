@@ -1,0 +1,258 @@
+<div class="container so-container">
+  <div class="form-header">
+    <div>
+      <h1>{{ isEditMode ? 'Editar Ordem de Serviço' : 'Nova Ordem de Serviço' }}</h1>
+      <p>Preencha os dados da ordem para registrar o atendimento.</p>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <form [formGroup]="form" (ngSubmit)="save()" class="form">
+    <div class="section-group">
+      <section class="section card">
+        <div class="section-title">
+          <h2>Dados do Cliente</h2>
+        </div>
+        <div class="field-grid">
+          <div class="form-group cpf-group" [class.invalid]="isInvalid('customerCpf')">
+            <label>CPF *</label>
+            <div class="input-action">
+              <input formControlName="customerCpf" placeholder="00000000000" />
+              <button type="button" class="btn btn-secondary" (click)="buscarCpf()">Buscar CPF</button>
+            </div>
+            <div *ngIf="isInvalid('customerCpf')" class="error-text">
+              CPF é obrigatório.
+            </div>
+            <div *ngIf="getFieldError('customerCpf')" class="error-text">
+              {{ getFieldError('customerCpf') }}
+            </div>
+          </div>
+
+          <div class="form-group" [class.invalid]="isInvalid('customerName')">
+            <label>Nome *</label>
+            <input formControlName="customerName" placeholder="Nome do cliente" />
+            <div *ngIf="isInvalid('customerName')" class="error-text">
+              Nome é obrigatório.
+            </div>
+            <div *ngIf="getFieldError('customerName')" class="error-text">
+              {{ getFieldError('customerName') }}
+            </div>
+          </div>
+
+          <div class="form-group" [class.invalid]="isInvalid('customerPhone')">
+            <label>Telefone *</label>
+            <input formControlName="customerPhone" placeholder="(00) 00000-0000" />
+            <div *ngIf="isInvalid('customerPhone')" class="error-text">
+              Telefone é obrigatório.
+            </div>
+            <div *ngIf="getFieldError('customerPhone')" class="error-text">
+              {{ getFieldError('customerPhone') }}
+            </div>
+          </div>
+
+          <div class="form-group" [class.invalid]="isInvalid('customerAddress')">
+            <label>Endereço *</label>
+            <input formControlName="customerAddress" placeholder="Rua, número, complemento" />
+            <div *ngIf="isInvalid('customerAddress')" class="error-text">
+              Endereço é obrigatório.
+            </div>
+            <div *ngIf="getFieldError('customerAddress')" class="error-text">
+              {{ getFieldError('customerAddress') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>RG</label>
+            <input formControlName="customerRg" placeholder="RG" />
+          </div>
+
+          <div class="form-group">
+            <label>Data de Nascimento</label>
+            <input type="date" formControlName="customerBirthDate" />
+          </div>
+
+          <div class="form-group">
+            <label>Bairro</label>
+            <input formControlName="customerNeighborhood" />
+          </div>
+
+          <div class="form-group">
+            <label>Ponto de Referência</label>
+            <input formControlName="customerReferencePoint" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section card">
+        <div class="section-title">
+          <h2>Dados da OS</h2>
+        </div>
+        <div class="field-grid two-columns">
+          <div class="form-group" [class.invalid]="isInvalid('issueDate')">
+            <label>Data de Emissão</label>
+            <input type="date" formControlName="issueDate" />
+            <div *ngIf="getFieldError('issueDate')" class="error-text">
+              {{ getFieldError('issueDate') }}
+            </div>
+          </div>
+          <div class="form-group" [class.invalid]="isInvalid('deliveryDate')">
+            <label>Data de Entrega</label>
+            <input type="date" formControlName="deliveryDate" />
+            <div *ngIf="getFieldError('deliveryDate')" class="error-text">
+              {{ getFieldError('deliveryDate') }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section card">
+        <div class="section-title">
+          <h2>Informações da Armação</h2>
+        </div>
+        <div class="field-grid two-columns">
+          <div class="form-group">
+            <label>Tipo de Armação</label>
+            <input formControlName="frameType" />
+          </div>
+          <div class="form-group">
+            <label>Marca</label>
+            <input formControlName="frameBrand" />
+          </div>
+          <div class="form-group">
+            <label>Referência</label>
+            <input formControlName="frameReference" />
+          </div>
+          <div class="form-group">
+            <label>Cor</label>
+            <input formControlName="frameColor" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section card">
+        <div class="section-title">
+          <h2>Tabela OD / OE</h2>
+        </div>
+        <div class="table-responsive">
+          <table class="optical-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Esférico</th>
+                <th>Cilindro</th>
+                <th>Eixo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>OD</td>
+                <td><input formControlName="rightEyeSphere" /></td>
+                <td><input formControlName="rightEyeCylinder" /></td>
+                <td><input formControlName="rightEyeAxis" /></td>
+              </tr>
+              <tr>
+                <td>OE</td>
+                <td><input formControlName="leftEyeSphere" /></td>
+                <td><input formControlName="leftEyeCylinder" /></td>
+                <td><input formControlName="leftEyeAxis" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="field-grid two-columns">
+          <div class="form-group">
+            <label>AD</label>
+            <input formControlName="ad" />
+          </div>
+          <div class="form-group">
+            <label>DP</label>
+            <input formControlName="dp" />
+          </div>
+          <div class="form-group">
+            <label>DNP</label>
+            <input formControlName="dnp" />
+          </div>
+          <div class="form-group">
+            <label>Tipo de Lente</label>
+            <input formControlName="lensType" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section card">
+        <div class="section-title">
+          <h2>Financeiro</h2>
+        </div>
+        <div class="field-grid two-columns">
+          <div class="form-group">
+            <label>Valor Armação</label>
+            <input type="number" formControlName="frameValue" />
+          </div>
+          <div class="form-group">
+            <label>Valor Lente</label>
+            <input type="number" formControlName="lensValue" />
+          </div>
+          <div class="form-group">
+            <label>Valor Óculos Solar</label>
+            <input type="number" formControlName="sunglassesValue" />
+          </div>
+          <div class="form-group">
+            <label>Valor Conserto</label>
+            <input type="number" formControlName="repairValue" />
+          </div>
+          <div class="form-group">
+            <label>Outros</label>
+            <input type="number" formControlName="otherValue" />
+          </div>
+          <div class="form-group">
+            <label>Valor Total</label>
+            <input type="number" formControlName="totalValue" />
+          </div>
+          <div class="form-group">
+            <label>Entrada</label>
+            <input type="number" formControlName="downPayment" />
+          </div>
+          <div class="form-group">
+            <label>Saldo</label>
+            <input type="number" formControlName="remainingBalance" />
+          </div>
+          <div class="form-group">
+            <label>Forma de Pagamento</label>
+            <select formControlName="paymentMethod">
+              <option *ngFor="let option of paymentMethods" [value]="option.value">{{ option.label }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status da OS</label>
+            <select formControlName="status">
+              <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="section card">
+        <div class="section-title">
+          <h2>Observações</h2>
+        </div>
+        <div class="form-group">
+          <label>Observações</label>
+          <textarea formControlName="observations" rows="4" placeholder="Digite observações importantes"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Assinatura</label>
+          <input formControlName="signature" />
+        </div>
+      </section>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="back()">Voltar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="submitting">
+        {{ submitting ? 'Salvando...' : 'Salvar' }}
+      </button>
+    </div>
+  </form>
+</div>

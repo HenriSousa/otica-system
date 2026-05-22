@@ -38,8 +38,8 @@
               "budgets": [
                 {
                   "type": "bundle",
-                  "maximumWarningSize": "2mb",
-                  "maximumErrorSize": "5mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 }
               ],
               "outputHashing": "all"

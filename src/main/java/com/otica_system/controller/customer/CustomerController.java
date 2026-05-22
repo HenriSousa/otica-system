@@ -45,6 +45,12 @@ public class CustomerController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/cpf")
+    public ResponseEntity<CustomerDTO> findByCpf(@RequestParam String cpf) {
+        CustomerDTO dto = service.findByCpf(cpf);
+        return ResponseEntity.ok(dto);
+    }
+
     @GetMapping
     public ResponseEntity<List<CustomerDTO>> findAll() {
         List<CustomerDTO> list = service.findAll();
