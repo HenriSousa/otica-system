@@ -1,14 +1,14 @@
 .container {
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 24px 20px;
 }
 
 .so-container {
-  background-color: #f3f5f9;
+  background-color: #f5f7fb;
 }
 
-.form-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -16,7 +16,7 @@
   margin-bottom: 24px;
 }
 
-.form-header h1 {
+.header h1 {
   margin: 0;
   font-size: 28px;
   color: #16243d;
@@ -25,6 +25,7 @@
 .form-header p {
   margin: 8px 0 0;
   color: #556680;
+  max-width: 720px;
 }
 
 .form-actions {
@@ -35,10 +36,15 @@
 .btn {
   min-height: 46px;
   padding: 0 18px;
-  border-radius: 12px;
+  border-radius: 14px;
   border: none;
   font-weight: 700;
   cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
 }
 
 .btn-primary {
@@ -49,6 +55,7 @@
 .btn-secondary {
   background: #f2f7ff;
   color: #0b63ce;
+  border: 1px solid #c7d5f0;
 }
 
 .error-message {
@@ -56,7 +63,7 @@
   border: 1px solid #fecaca;
   color: #9b2c2c;
   padding: 14px 16px;
-  border-radius: 12px;
+  border-radius: 14px;
   margin-bottom: 18px;
 }
 
@@ -94,7 +101,7 @@
 
 .form-group {
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
 
 .form-group label {
@@ -105,7 +112,7 @@
 .form-group span {
   display: block;
   min-height: 44px;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border: 1px solid #e6eaf4;
   border-radius: 14px;
   background: #f8fafc;

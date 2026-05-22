@@ -1,11 +1,11 @@
 .container {
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 24px 20px;
 }
 
 .so-container {
-  background-color: #f3f5f9;
+  background-color: #f5f7fb;
 }
 
 .form-header {
@@ -25,7 +25,7 @@
 .form-header p {
   margin: 8px 0 0;
   color: #556680;
-  max-width: 680px;
+  max-width: 720px;
 }
 
 .error-message {
@@ -33,15 +33,15 @@
   border: 1px solid #fecaca;
   color: #9b2c2c;
   padding: 14px 16px;
-  border-radius: 12px;
+  border-radius: 14px;
   margin-bottom: 18px;
 }
 
 .form {
   background: #ffffff;
   padding: 24px;
-  border-radius: 20px;
-  box-shadow: 0 16px 50px rgba(15, 23, 42, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.08);
 }
 
 .section-group {
@@ -50,13 +50,14 @@
 }
 
 .card {
+  background: #ffffff;
   border: 1px solid #e6eaf4;
-  border-radius: 18px;
-  padding: 20px;
+  border-radius: 20px;
+  padding: 24px;
 }
 
 .section-title {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .section-title h2 {
@@ -67,7 +68,7 @@
 
 .field-grid {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .field-grid.two-columns {
@@ -76,7 +77,7 @@
 
 .form-group {
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
 
 .form-group.invalid label {
@@ -92,35 +93,45 @@
 .form-group label {
   color: #283046;
   font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
   width: 100%;
-  min-height: 44px;
-  padding: 12px 14px;
+  min-height: 46px;
+  padding: 14px 16px;
   border: 1px solid #d7dde8;
   border-radius: 14px;
   background: #fcfdff;
   color: #182237;
   font-size: 0.98rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #0b63ce;
+  box-shadow: 0 0 0 4px rgba(11, 99, 206, 0.12);
 }
 
 .form-group textarea {
-  min-height: 100px;
+  min-height: 120px;
   resize: vertical;
 }
 
 .error-text {
   color: #b42318;
   font-size: 0.9rem;
-  margin-top: -0.5rem;
+  margin-top: 0.25rem;
 }
 
 .cpf-group .input-action {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px;
+  grid-template-columns: minmax(0, 1fr) 180px;
   gap: 12px;
 }
 
@@ -153,15 +164,21 @@
   justify-content: flex-end;
   gap: 14px;
   margin-top: 24px;
+  flex-wrap: wrap;
 }
 
 .btn {
   min-height: 46px;
-  padding: 0 18px;
-  border-radius: 12px;
+  padding: 0 20px;
+  border-radius: 14px;
   border: none;
   font-weight: 700;
   cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
 }
 
 .btn-primary {
@@ -172,6 +189,7 @@
 .btn-secondary {
   background: #f2f7ff;
   color: #0b63ce;
+  border: 1px solid #c7d5f0;
 }
 
 @media (max-width: 960px) {

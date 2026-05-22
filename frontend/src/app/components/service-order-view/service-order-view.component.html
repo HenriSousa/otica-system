@@ -1,11 +1,12 @@
-<div class="container so-container">
-  <div class="form-header">
+<div class="container">
+  <div class="header">
     <div>
       <h1>Visualizar Ordem de Serviço</h1>
       <p>Detalhes da ordem de serviço mantidos apenas para consulta.</p>
     </div>
     <div class="form-actions">
       <button class="btn btn-secondary" type="button" (click)="back()">Voltar</button>
+      <button class="btn btn-secondary" type="button" (click)="openPrint()" [disabled]="!order">Gerar PDF</button>
       <button class="btn btn-primary" type="button" (click)="edit()" [disabled]="!order">Editar</button>
     </div>
   </div>
@@ -192,3 +193,9 @@
     </div>
   </section>
 </div>
+
+<app-service-order-print 
+  [order]="order" 
+  [visible]="showPrint"
+  (closed)="closePrint()">
+</app-service-order-print>

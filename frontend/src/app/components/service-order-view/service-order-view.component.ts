@@ -3,19 +3,21 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceOrder } from '../../models/service-order.model';
 import { ServiceOrderService } from '../../services/service-order.service';
+import { ServiceOrderPrintComponent } from '../service-order-print/service-order-print.component';
 
 @Component({
   selector: 'app-service-order-view',
   templateUrl: './service-order-view.component.html',
   styleUrls: ['./service-order-view.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, ServiceOrderPrintComponent]
 })
 export class ServiceOrderViewComponent implements OnInit {
 
-  order?: ServiceOrder;
+  order: ServiceOrder | null = null;
   loading = true;
   errorMessage = '';
+  showPrint = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,5 +53,13 @@ export class ServiceOrderViewComponent implements OnInit {
     if (this.order?.id) {
       this.router.navigate([`/service-orders/${this.order.id}/edit`]);
     }
+  }
+
+  openPrint() {
+    this.showPrint = true;
+  }
+
+  closePrint() {
+    this.showPrint = false;
   }
 }

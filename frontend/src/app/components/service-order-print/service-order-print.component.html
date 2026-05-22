@@ -1,0 +1,221 @@
+<div class="print-overlay" *ngIf="visible">
+  <div class="print-header">
+    <button class="print-btn" (click)="generatePdf()">Baixar PDF</button>
+    <button class="close-btn" (click)="close()">Fechar</button>
+  </div>
+
+  <div id="print-content" class="print-content" *ngIf="order">
+    <!-- Header -->
+    <div class="print-header-section">
+      <div class="store-info">
+        <h1>{{ storeName }}</h1>
+        <p>{{ storePhone }}</p>
+        <p>{{ storeAddress }}</p>
+        <p>{{ storeCep }}</p>
+        <p>Instagram: {{ storeInstagram }}</p>
+      </div>
+      <div class="order-id">
+        <p><strong>OS #{{ order.id }}</strong></p>
+      </div>
+    </div>
+
+    <!-- Client Information -->
+    <div class="print-section">
+      <h2>Dados do Cliente</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Nome:</label>
+          <span>{{ order.customerName }}</span>
+        </div>
+        <div class="info-item">
+          <label>CPF:</label>
+          <span>{{ order.customerCpf }}</span>
+        </div>
+        <div class="info-item">
+          <label>RG:</label>
+          <span>{{ order.customerRg || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Telefone:</label>
+          <span>{{ order.customerPhone }}</span>
+        </div>
+        <div class="info-item">
+          <label>Data Nascimento:</label>
+          <span>{{ order.customerBirthDate || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Endereço:</label>
+          <span>{{ order.customerAddress }}</span>
+        </div>
+        <div class="info-item">
+          <label>Bairro:</label>
+          <span>{{ order.customerNeighborhood || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Ponto Ref.:</label>
+          <span>{{ order.customerReferencePoint || '—' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Dates -->
+    <div class="print-section">
+      <div class="info-grid two-cols">
+        <div class="info-item">
+          <label>Data Emissão:</label>
+          <span>{{ order.issueDate || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Data Entrega:</label>
+          <span>{{ order.deliveryDate || '—' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frame Information -->
+    <div class="print-section">
+      <h2>Armação</h2>
+      <div class="info-grid two-cols">
+        <div class="info-item">
+          <label>Tipo:</label>
+          <span>{{ order.frameType || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Marca:</label>
+          <span>{{ order.frameBrand || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Referência:</label>
+          <span>{{ order.frameReference || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Cor:</label>
+          <span>{{ order.frameColor || '—' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vision Table -->
+    <div class="print-section">
+      <h2>Prescrição Óptica</h2>
+      <table class="prescription-table">
+        <thead>
+          <tr>
+            <th>Olho</th>
+            <th>Longe</th>
+            <th>Est.</th>
+            <th>Cil.</th>
+            <th>Eixo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>OD</strong></td>
+            <td>{{ order.rightEyeSphere || '—' }}</td>
+            <td>—</td>
+            <td>{{ order.rightEyeCylinder || '—' }}</td>
+            <td>{{ order.rightEyeAxis || '—' }}</td>
+          </tr>
+          <tr>
+            <td><strong>OE</strong></td>
+            <td>{{ order.leftEyeSphere || '—' }}</td>
+            <td>—</td>
+            <td>{{ order.leftEyeCylinder || '—' }}</td>
+            <td>{{ order.leftEyeAxis || '—' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="print-section">
+      <h2>Complementos</h2>
+      <div class="info-grid two-cols">
+        <div class="info-item">
+          <label>AD:</label>
+          <span>{{ order.ad || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>DP:</label>
+          <span>{{ order.dp || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>DNP:</label>
+          <span>{{ order.dnp || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Tipo Lente:</label>
+          <span>{{ order.lensType || '—' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Financial Section -->
+    <div class="print-section">
+      <h2>Financeiro</h2>
+      <div class="financial-grid">
+        <div class="financial-item">
+          <label>Armação:</label>
+          <span class="amount">R$ {{ (order.frameValue || 0) | number:'1.2-2' }}</span>
+        </div>
+        <div class="financial-item">
+          <label>Lente:</label>
+          <span class="amount">R$ {{ (order.lensValue || 0) | number:'1.2-2' }}</span>
+        </div>
+        <div class="financial-item">
+          <label>Solar:</label>
+          <span class="amount">R$ {{ (order.sunglassesValue || 0) | number:'1.2-2' }}</span>
+        </div>
+        <div class="financial-item">
+          <label>Conserto:</label>
+          <span class="amount">R$ {{ (order.repairValue || 0) | number:'1.2-2' }}</span>
+        </div>
+        <div class="financial-item">
+          <label>Outros:</label>
+          <span class="amount">R$ {{ (order.otherValue || 0) | number:'1.2-2' }}</span>
+        </div>
+        <div class="financial-item total">
+          <label>Total:</label>
+          <span class="amount">R$ {{ (order.totalValue || 0) | number:'1.2-2' }}</span>
+        </div>
+        <div class="financial-item">
+          <label>Pagamento:</label>
+          <span>{{ order.paymentMethod || '—' }}</span>
+        </div>
+        <div class="financial-item">
+          <label>Entrada:</label>
+          <span class="amount">R$ {{ (order.downPayment || 0) | number:'1.2-2' }}</span>
+        </div>
+        <div class="financial-item">
+          <label>Saldo:</label>
+          <span class="amount">R$ {{ (order.remainingBalance || 0) | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Observations -->
+    <div class="print-section" *ngIf="order.observations">
+      <h2>Observações</h2>
+      <p class="observations">{{ order.observations }}</p>
+    </div>
+
+    <!-- Signature Section -->
+    <div class="print-section signature-section">
+      <div class="signature-lines">
+        <div class="signature-line">
+          <p>_____________________________</p>
+          <p>Assinatura do Cliente</p>
+        </div>
+        <div class="signature-line">
+          <p>_____________________________</p>
+          <p>Assinatura do Vendedor</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="print-footer">
+      <p>Obrigado pela preferência! {{ storeName }}</p>
+    </div>
+  </div>
+</div>
