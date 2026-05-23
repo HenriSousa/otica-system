@@ -8,7 +8,7 @@ import { Customer } from '../models/customer.model';
 })
 export class CustomerService {
 
-  private apiUrl = '/api/customers';
+  private apiUrl = 'https://otica-system-backend.onrender.com/api/customers';
 
   constructor(private http: HttpClient) { }
 
