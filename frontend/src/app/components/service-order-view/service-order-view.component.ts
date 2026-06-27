@@ -4,13 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceOrder } from '../../models/service-order.model';
 import { ServiceOrderService } from '../../services/service-order.service';
 import { ServiceOrderPrintComponent } from '../service-order-print/service-order-print.component';
+import { ServiceOrderPdfClientComponent } from '../service-order-pdf-client/service-order-pdf-client.component';
+import { ServiceOrderPdfLaboratoryComponent } from '../service-order-pdf-laboratory/service-order-pdf-laboratory.component';
 
 @Component({
   selector: 'app-service-order-view',
   templateUrl: './service-order-view.component.html',
   styleUrls: ['./service-order-view.component.scss'],
   standalone: true,
-  imports: [CommonModule, ServiceOrderPrintComponent]
+  imports: [CommonModule, ServiceOrderPrintComponent, ServiceOrderPdfClientComponent, ServiceOrderPdfLaboratoryComponent]
 })
 export class ServiceOrderViewComponent implements OnInit {
 
@@ -18,6 +20,8 @@ export class ServiceOrderViewComponent implements OnInit {
   loading = true;
   errorMessage = '';
   showPrint = false;
+  showPdfClient = false;
+  showPdfLaboratory = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,5 +65,21 @@ export class ServiceOrderViewComponent implements OnInit {
 
   closePrint() {
     this.showPrint = false;
+  }
+
+  openPdfClient() {
+    this.showPdfClient = true;
+  }
+
+  closePdfClient() {
+    this.showPdfClient = false;
+  }
+
+  openPdfLaboratory() {
+    this.showPdfLaboratory = true;
+  }
+
+  closePdfLaboratory() {
+    this.showPdfLaboratory = false;
   }
 }

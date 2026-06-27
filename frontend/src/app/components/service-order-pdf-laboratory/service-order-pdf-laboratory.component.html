@@ -1,0 +1,106 @@
+<div id="pdf-lab-content" class="pdf-lab-container" *ngIf="order">
+  <!-- Header -->
+  <div class="lab-header">
+    <h1>{{ storeName }}</h1>
+    <h2>Pedido para Laboratório</h2>
+    <p class="order-number">OS #{{ order.id }}</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="lab-content">
+    <!-- Left Column -->
+    <div class="lab-left">
+      <!-- Image Placeholder -->
+      <div class="image-placeholder">
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        <div class="info-item">
+          <label>Produto:</label>
+          <span>{{ order.lensType || '—' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Tratamento:</label>
+          <span>—</span>
+        </div>
+        <div class="info-item">
+          <label>OS #:</label>
+          <span>{{ order.id }}</span>
+        </div>
+        <div class="info-item">
+          <label>Paciente:</label>
+          <span>{{ order.customerName }}</span>
+        </div>
+        <div class="info-item">
+          <label>Ótica:</label>
+          <span>{{ storeName }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="lab-right">
+      <!-- Prescription Table -->
+      <div class="prescription-section">
+        <h3>Prescrição</h3>
+        <table class="prescription-table-lab">
+          <thead>
+            <tr>
+              <th>Olho</th>
+              <th>Esf.</th>
+              <th>Cil.</th>
+              <th>Eixo</th>
+              <th>Ad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>OD</strong></td>
+              <td>{{ order.rightEyeSphere || '—' }}</td>
+              <td>{{ order.rightEyeCylinder || '—' }}</td>
+              <td>{{ order.rightEyeAxis || '—' }}</td>
+              <td rowspan="2" class="ad-cell">{{ order.ad || '—' }}</td>
+            </tr>
+            <tr>
+              <td><strong>OE</strong></td>
+              <td>{{ order.leftEyeSphere || '—' }}</td>
+              <td>{{ order.leftEyeCylinder || '—' }}</td>
+              <td>{{ order.leftEyeAxis || '—' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Frame Info -->
+      <div class="frame-section">
+        <h3>Armação</h3>
+        <div class="frame-items">
+          <div class="frame-item">
+            <span class="label">{{ order.frameBrand || '—' }}</span>
+          </div>
+          <div class="frame-item">
+            <span class="label">{{ order.frameColor || '—' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Info -->
+      <div class="financial-section">
+        <div class="financial-item">
+          <label>Valor Lente:</label>
+          <span class="amount">R$ {{ (getLensValue() | number:'1.2-2') }}</span>
+        </div>
+        <div class="financial-item">
+          <label>Valor Serviço:</label>
+          <span class="amount">R$ {{ (getServiceValue() | number:'1.2-2') }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="lab-footer">
+    <p>Documento gerado automaticamente pelo Ótica System</p>
+  </div>
+</div>

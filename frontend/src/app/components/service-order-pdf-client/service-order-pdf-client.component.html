@@ -1,0 +1,178 @@
+<div id="pdf-client-content" class="pdf-client-container" *ngIf="order">
+  <!-- Header -->
+  <div class="pdf-header">
+    <div class="store-header">
+      <h1>{{ storeName }}</h1>
+      <p class="store-phone">{{ storePhone }}</p>
+      <p class="store-address">{{ storeAddress }}</p>
+      <p class="store-address">{{ storeAddressLine2 }}</p>
+      <p class="store-cep">{{ storeCep }}</p>
+      <p class="store-instagram">Instagram: {{ storeInstagram }}</p>
+    </div>
+  </div>
+
+  <!-- Order Title -->
+  <div class="order-title">
+    <h2>Ordem de Serviço #{{ order.id }}</h2>
+  </div>
+
+  <!-- Customer Information -->
+  <section class="pdf-section">
+    <h3>Dados do Cliente</h3>
+    <div class="info-row">
+      <div class="info-col col-50">
+        <label>Nome:</label>
+        <p>{{ order.customerName }}</p>
+      </div>
+      <div class="info-col col-50">
+        <label>Telefone:</label>
+        <p>{{ order.customerPhone }}</p>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-col col-50">
+        <label>Data de Emissão:</label>
+        <p>{{ order.issueDate || '—' }}</p>
+      </div>
+      <div class="info-col col-50">
+        <label>Data de Entrega:</label>
+        <p>{{ order.deliveryDate || '—' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Frame Information -->
+  <section class="pdf-section">
+    <h3>Informações da Armação</h3>
+    <div class="info-row">
+      <div class="info-col col-25">
+        <label>Tipo:</label>
+        <p>{{ order.frameType || '—' }}</p>
+      </div>
+      <div class="info-col col-25">
+        <label>Marca:</label>
+        <p>{{ order.frameBrand || '—' }}</p>
+      </div>
+      <div class="info-col col-25">
+        <label>RE:</label>
+        <p>{{ order.frameReference || '—' }}</p>
+      </div>
+      <div class="info-col col-25">
+        <label>Cor:</label>
+        <p>{{ order.frameColor || '—' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prescription Table -->
+  <section class="pdf-section">
+    <h3>Prescrição Óptica</h3>
+    <table class="prescription-table">
+      <thead>
+        <tr>
+          <th>Olho</th>
+          <th>Esfera</th>
+          <th>Cilindro</th>
+          <th>Eixo</th>
+          <th>AD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>OD</strong></td>
+          <td>{{ order.rightEyeSphere || '—' }}</td>
+          <td>{{ order.rightEyeCylinder || '—' }}</td>
+          <td>{{ order.rightEyeAxis || '—' }}</td>
+          <td rowspan="2">{{ order.ad || '—' }}</td>
+        </tr>
+        <tr>
+          <td><strong>OE</strong></td>
+          <td>{{ order.leftEyeSphere || '—' }}</td>
+          <td>{{ order.leftEyeCylinder || '—' }}</td>
+          <td>{{ order.leftEyeAxis || '—' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Additional Information -->
+  <section class="pdf-section">
+    <h3>Complementos</h3>
+    <div class="info-row">
+      <div class="info-col col-33">
+        <label>DP:</label>
+        <p>{{ order.dp || '—' }}</p>
+      </div>
+      <div class="info-col col-33">
+        <label>DNP:</label>
+        <p>{{ order.dnp || '—' }}</p>
+      </div>
+      <div class="info-col col-34">
+        <label>Tipo de Lente:</label>
+        <p>{{ order.lensType || '—' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Financial Information -->
+  <section class="pdf-section">
+    <h3>Valores</h3>
+    <div class="financial-grid">
+      <div class="financial-row">
+        <span class="financial-label">Armação:</span>
+        <span class="financial-value">R$ {{ (order.frameValue || 0) | number:'1.2-2' }}</span>
+      </div>
+      <div class="financial-row">
+        <span class="financial-label">Lente:</span>
+        <span class="financial-value">R$ {{ (order.lensValue || 0) | number:'1.2-2' }}</span>
+      </div>
+      <div class="financial-row">
+        <span class="financial-label">Óculos Solar:</span>
+        <span class="financial-value">R$ {{ (order.sunglassesValue || 0) | number:'1.2-2' }}</span>
+      </div>
+      <div class="financial-row">
+        <span class="financial-label">Conserto:</span>
+        <span class="financial-value">R$ {{ (order.repairValue || 0) | number:'1.2-2' }}</span>
+      </div>
+      <div class="financial-row">
+        <span class="financial-label">Outros:</span>
+        <span class="financial-value">R$ {{ (order.otherValue || 0) | number:'1.2-2' }}</span>
+      </div>
+      <div class="financial-row total-row">
+        <span class="financial-label">Total:</span>
+        <span class="financial-value">R$ {{ (order.totalValue || 0) | number:'1.2-2' }}</span>
+      </div>
+      <div class="financial-row">
+        <span class="financial-label">Forma de Pagamento:</span>
+        <span class="financial-value">{{ order.paymentMethod || '—' }}</span>
+      </div>
+      <div class="financial-row">
+        <span class="financial-label">Entrada:</span>
+        <span class="financial-value">R$ {{ (order.downPayment || 0) | number:'1.2-2' }}</span>
+      </div>
+      <div class="financial-row">
+        <span class="financial-label">Saldo:</span>
+        <span class="financial-value">R$ {{ (order.remainingBalance || 0) | number:'1.2-2' }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Observations -->
+  <section class="pdf-section" *ngIf="order.observations">
+    <h3>Observações</h3>
+    <p class="observations">{{ order.observations }}</p>
+  </section>
+
+  <!-- Signature -->
+  <section class="pdf-section signature-section">
+    <div class="signature-box">
+      <p class="signature-line"></p>
+      <p class="signature-label">Assinatura do Cliente</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="pdf-footer">
+    <p>Documento gerado automaticamente pelo Ótica System</p>
+  </div>
+</div>

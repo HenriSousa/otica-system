@@ -8,7 +8,8 @@ import { ServiceOrder } from '../models/service-order.model';
 })
 export class ServiceOrderService {
 
-  private apiUrl = 'https://otica-system-backend.onrender.com/api/service-orders';
+  private apiUrl = '/api/service-orders';
+  //private apiUrl = 'https://otica-system-backend.onrender.com/api/service-orders';
 
   constructor(private http: HttpClient) { }
 

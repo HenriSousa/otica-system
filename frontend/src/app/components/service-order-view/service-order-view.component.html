@@ -6,7 +6,8 @@
     </div>
     <div class="form-actions">
       <button class="btn btn-secondary" type="button" (click)="back()">Voltar</button>
-      <button class="btn btn-secondary" type="button" (click)="openPrint()" [disabled]="!order">Gerar PDF</button>
+      <button class="btn btn-secondary" type="button" (click)="openPdfClient()" [disabled]="!order">Gerar PDF Cliente</button>
+      <button class="btn btn-secondary" type="button" (click)="openPdfLaboratory()" [disabled]="!order">Gerar PDF Laboratório</button>
       <button class="btn btn-primary" type="button" (click)="edit()" [disabled]="!order">Editar</button>
     </div>
   </div>
@@ -199,3 +200,15 @@
   [visible]="showPrint"
   (closed)="closePrint()">
 </app-service-order-print>
+
+<app-service-order-pdf-client 
+  [order]="order" 
+  [visible]="showPdfClient"
+  (closed)="closePdfClient()">
+</app-service-order-pdf-client>
+
+<app-service-order-pdf-laboratory 
+  [order]="order" 
+  [visible]="showPdfLaboratory"
+  (closed)="closePdfLaboratory()">
+</app-service-order-pdf-laboratory>

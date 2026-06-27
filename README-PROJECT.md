@@ -152,7 +152,95 @@ Content-Type: application/json
 DELETE /api/customers/{id}
 ```
 
-## 🏛️ Design Patterns & Architecture
+### Service Order Management Endpoints
+
+#### List All Service Orders
+```http
+GET /api/service-orders
+```
+
+#### Get Service Order by ID
+```http
+GET /api/service-orders/{id}
+```
+
+#### Search Service Orders by CPF
+```http
+GET /api/service-orders/cpf?cpf=12345678901
+```
+
+#### Create Service Order
+```http
+POST /api/service-orders
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "customerName": "João Silva",
+  "customerPhone": "81999999999",
+  "customerCpf": "12345678901",
+  "customerAddress": "Rua Example, 123",
+  "issueDate": "2026-05-20",
+  "deliveryDate": "2026-05-30",
+  "frameType": "Armação Completa",
+  "frameBrand": "RayBan",
+  "frameColor": "Preta",
+  "rightEyeSphere": "-2.00",
+  "rightEyeCylinder": "-0.50",
+  "rightEyeAxis": "180",
+  "leftEyeSphere": "-2.50",
+  "leftEyeCylinder": "-0.75",
+  "leftEyeAxis": "175",
+  "ad": "3",
+  "lensType": "Lente Multifocal",
+  "lensValue": 800.00,
+  "repairValue": 0.00,
+  "otherValue": 0.00,
+  "paymentMethod": "DEBITO",
+  "status": "PENDENTE",
+  "observations": "Cliente solicitou entrega rápida"
+}
+```
+
+#### Update Service Order
+```http
+PUT /api/service-orders/{id}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "customerId": 1,
+  "customerName": "João Silva",
+  "customerPhone": "81999999999",
+  "customerCpf": "12345678901",
+  "customerAddress": "Rua Example, 123",
+  "issueDate": "2026-05-20",
+  "deliveryDate": "2026-05-30",
+  "frameType": "Armação Completa",
+  "frameBrand": "RayBan",
+  "frameColor": "Preta",
+  "rightEyeSphere": "-2.00",
+  "rightEyeCylinder": "-0.50",
+  "rightEyeAxis": "180",
+  "leftEyeSphere": "-2.50",
+  "leftEyeCylinder": "-0.75",
+  "leftEyeAxis": "175",
+  "ad": "3",
+  "lensType": "Lente Multifocal",
+  "lensValue": 800.00,
+  "repairValue": 0.00,
+  "otherValue": 0.00,
+  "paymentMethod": "DEBITO",
+  "status": "CONCLUIDA",
+  "observations": "Serviço concluído com sucesso"
+}
+```
+
+#### Delete Service Order
+```http
+DELETE /api/service-orders/{id}
+```
+
 
 ### Backend
 - **Domain-Driven Design (DDD)** - Domain entities and business logic separation
@@ -181,12 +269,29 @@ DELETE /api/customers/{id}
 - ✅ Form validation (required fields, CPF format, etc.)
 - ✅ Error handling and user feedback
 
+### Service Order Management
+- ✅ Create new service orders
+- ✅ List all service orders with CPF search
+- ✅ View service order details
+- ✅ Update service order information
+- ✅ Delete service orders
+- ✅ Full optical prescription tracking (OD/OE Esfera, Cilindro, Eixo, AD)
+- ✅ Frame information tracking (tipo, marca, cor)
+- ✅ Financial breakdown (Valor Lente, Valor Reparo, Outros Valores, Saldo Devedor)
+- ✅ Payment method selection (Dinheiro, Débito, Crédito)
+- ✅ Order status tracking (Pendente, Em Andamento, Concluída, Cancelada)
+- ✅ PDF generation - Cliente (A4) for customer delivery
+- ✅ PDF generation - Laboratório (A5) for laboratory production
+
 ### Business Rules
 - Name is required
 - Phone is required
 - CPF is required and must be unique
 - Address is required
 - Birth date cannot be in the future
+- Service Order must have a valid customer
+- Service Order dates must be valid (delivery date >= issue date)
+- Financial values default to zero and calculate total automatically
 
 ## 🔒 Validation
 
@@ -216,6 +321,41 @@ CREATE TABLE customers (
 );
 ```
 
+### Service Orders Table
+```sql
+CREATE TABLE service_orders (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  customer_id BIGINT NOT NULL,
+  customer_name VARCHAR(255) NOT NULL,
+  customer_phone VARCHAR(20) NOT NULL,
+  customer_cpf VARCHAR(11) NOT NULL,
+  customer_address VARCHAR(255) NOT NULL,
+  issue_date DATE NOT NULL,
+  delivery_date DATE,
+  frame_type VARCHAR(100),
+  frame_brand VARCHAR(100),
+  frame_color VARCHAR(50),
+  re VARCHAR(10),
+  right_eye_sphere VARCHAR(10),
+  right_eye_cylinder VARCHAR(10),
+  right_eye_axis VARCHAR(10),
+  left_eye_sphere VARCHAR(10),
+  left_eye_cylinder VARCHAR(10),
+  left_eye_axis VARCHAR(10),
+  ad VARCHAR(10),
+  lens_type VARCHAR(100),
+  lens_value DECIMAL(10,2),
+  dp VARCHAR(10),
+  dnp VARCHAR(10),
+  repair_value DECIMAL(10,2),
+  other_value DECIMAL(10,2),
+  payment_method VARCHAR(50),
+  status VARCHAR(50),
+  observations TEXT,
+  FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+```
+
 ## 🔄 Continuous Integration / Continuous Deployment
 
 ### Build Backend
@@ -240,8 +380,10 @@ npm run build
 
 ## 🚀 Future Roadmap
 
+- [x] Customer Management Module
+- [x] Service Order Module with PDF generation
 - [ ] CRM Module (Customer relationship management)
-- [ ] Order Service Module (Purchase orders, invoicing)
+- [ ] Purchase Order Module (Inventory integration)
 - [ ] Inventory Module (Stock management, suppliers)
 - [ ] Financial Module (Payments, accounting)
 - [ ] Reports Module (Sales, customer analytics)
@@ -267,5 +409,5 @@ For questions or issues, please create an issue in the repository.
 
 ---
 
-**Version**: 0.0.1  
-**Last Updated**: May 20, 2026
+**Version**: 0.1.0  
+**Last Updated**: June 13, 2026

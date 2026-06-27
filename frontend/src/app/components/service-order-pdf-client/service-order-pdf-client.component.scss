@@ -1,0 +1,258 @@
+.pdf-client-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.pdf-header {
+  border-bottom: 3px solid #0b63ce;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.store-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #0b63ce;
+  font-weight: 700;
+}
+
+.store-phone,
+.store-address,
+.store-cep,
+.store-instagram {
+  margin: 4px 0;
+  font-size: 12px;
+  color: #555;
+}
+
+.order-title {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 12px 0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.order-title h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #16243d;
+}
+
+.pdf-section {
+  margin-bottom: 20px;
+  page-break-inside: avoid;
+}
+
+.pdf-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #16243d;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #0b63ce;
+}
+
+.info-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.info-col {
+  flex: 1;
+}
+
+.info-col label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #283046;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.info-col p {
+  margin: 0;
+  font-size: 13px;
+  color: #1f2937;
+  padding: 6px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.col-25 {
+  flex: 0 0 calc(25% - 12px);
+}
+
+.col-33 {
+  flex: 0 0 calc(33.33% - 11px);
+}
+
+.col-34 {
+  flex: 0 0 calc(33.33% - 11px);
+}
+
+.col-50 {
+  flex: 0 0 calc(50% - 8px);
+}
+
+/* Prescription Table */
+.prescription-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.prescription-table th,
+.prescription-table td {
+  border: 1px solid #bbb;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.prescription-table th {
+  background: #e6f0ff;
+  color: #0b63ce;
+  font-weight: 700;
+}
+
+.prescription-table tbody tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+.prescription-table td:first-child {
+  text-align: left;
+}
+
+/* Financial Grid */
+.financial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.financial-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 6px 0;
+}
+
+.financial-label {
+  font-weight: 600;
+  color: #283046;
+}
+
+.financial-value {
+  color: #0b63ce;
+  text-align: right;
+  min-width: 100px;
+}
+
+.financial-row.total-row {
+  grid-column: 1 / -1;
+  background: #e6f0ff;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #0b63ce;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.financial-row.total-row .financial-label {
+  color: #0b63ce;
+}
+
+.financial-row.total-row .financial-value {
+  color: #0b63ce;
+  font-size: 14px;
+}
+
+/* Observations */
+.observations {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #1f2937;
+  padding: 12px;
+  background: #f8fafc;
+  border-left: 4px solid #0b63ce;
+  border-radius: 4px;
+}
+
+/* Signature Section */
+.signature-section {
+  margin-top: 32px;
+}
+
+.signature-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.signature-line {
+  width: 200px;
+  border-top: 2px solid #333;
+  margin: 0;
+  height: 40px;
+}
+
+.signature-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+/* Footer */
+.pdf-footer {
+  border-top: 1px solid #e0e0e0;
+  margin-top: 24px;
+  padding-top: 12px;
+  text-align: center;
+  font-size: 11px;
+  color: #888;
+}
+
+.pdf-footer p {
+  margin: 0;
+}
+
+/* Print Media Query */
+@media print {
+  @page {
+    size: a4 portrait;
+    margin: 10mm;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .pdf-client-container {
+    max-width: 100%;
+  }
+
+  .pdf-section {
+    page-break-inside: avoid;
+  }
+}
+
+/* Screen Preview */
+@media screen {
+  .pdf-client-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 40px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
