@@ -50,7 +50,6 @@ export class ServiceOrderFormComponent implements OnInit {
       customerName: ['', Validators.required],
       customerPhone: ['', Validators.required],
       customerAddress: ['', Validators.required],
-      customerRg: [''],
       customerBirthDate: [''],
       customerNeighborhood: [''],
       customerReferencePoint: [''],

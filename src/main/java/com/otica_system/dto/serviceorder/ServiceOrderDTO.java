@@ -13,7 +13,6 @@ public class ServiceOrderDTO {
     private String customerName;
     private String customerPhone;
     private String customerCpf;
-    private String customerRg;
     private LocalDate customerBirthDate;
     private String customerAddress;
     private String customerNeighborhood;
@@ -50,13 +49,12 @@ public class ServiceOrderDTO {
     public ServiceOrderDTO() {
     }
 
-    public ServiceOrderDTO(Long id, Long customerId, String customerName, String customerPhone, String customerCpf, String customerRg, LocalDate customerBirthDate, String customerAddress, String customerNeighborhood, String customerReferencePoint, LocalDate issueDate, LocalDate deliveryDate, String frameType, String frameBrand, String frameReference, String frameColor, String rightEyeSphere, String rightEyeCylinder, String rightEyeAxis, String leftEyeSphere, String leftEyeCylinder, String leftEyeAxis, String ad, String dp, String dnp, String lensType, String observations, String signature, BigDecimal frameValue, BigDecimal lensValue, BigDecimal sunglassesValue, BigDecimal repairValue, BigDecimal otherValue, BigDecimal totalValue, BigDecimal downPayment, BigDecimal remainingBalance, PaymentMethod paymentMethod, ServiceOrderStatus status) {
+    public ServiceOrderDTO(Long id, Long customerId, String customerName, String customerPhone, String customerCpf, LocalDate customerBirthDate, String customerAddress, String customerNeighborhood, String customerReferencePoint, LocalDate issueDate, LocalDate deliveryDate, String frameType, String frameBrand, String frameReference, String frameColor, String rightEyeSphere, String rightEyeCylinder, String rightEyeAxis, String leftEyeSphere, String leftEyeCylinder, String leftEyeAxis, String ad, String dp, String dnp, String lensType, String observations, String signature, BigDecimal frameValue, BigDecimal lensValue, BigDecimal sunglassesValue, BigDecimal repairValue, BigDecimal otherValue, BigDecimal totalValue, BigDecimal downPayment, BigDecimal remainingBalance, PaymentMethod paymentMethod, ServiceOrderStatus status) {
         this.id = id;
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerPhone = customerPhone;
         this.customerCpf = customerCpf;
-        this.customerRg = customerRg;
         this.customerBirthDate = customerBirthDate;
         this.customerAddress = customerAddress;
         this.customerNeighborhood = customerNeighborhood;
@@ -129,14 +127,6 @@ public class ServiceOrderDTO {
 
     public void setCustomerCpf(String customerCpf) {
         this.customerCpf = customerCpf;
-    }
-
-    public String getCustomerRg() {
-        return customerRg;
-    }
-
-    public void setCustomerRg(String customerRg) {
-        this.customerRg = customerRg;
     }
 
     public LocalDate getCustomerBirthDate() {

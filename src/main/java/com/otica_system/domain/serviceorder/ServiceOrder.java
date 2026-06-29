@@ -29,8 +29,6 @@ public class ServiceOrder {
     @Column(nullable = false)
     private String customerCpf;
 
-    private String customerRg;
-
     private LocalDate customerBirthDate;
 
     @Column(nullable = false)
@@ -150,14 +148,6 @@ public class ServiceOrder {
 
     public void setCustomerCpf(String customerCpf) {
         this.customerCpf = customerCpf;
-    }
-
-    public String getCustomerRg() {
-        return customerRg;
-    }
-
-    public void setCustomerRg(String customerRg) {
-        this.customerRg = customerRg;
     }
 
     public LocalDate getCustomerBirthDate() {

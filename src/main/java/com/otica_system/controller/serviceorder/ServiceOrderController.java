@@ -2,6 +2,7 @@ package com.otica_system.controller.serviceorder;
 
 import com.otica_system.domain.serviceorder.ServiceOrder;
 import com.otica_system.dto.serviceorder.CreateServiceOrderDTO;
+import com.otica_system.dto.serviceorder.CustomerCrmSummaryDTO;
 import com.otica_system.dto.serviceorder.UpdateServiceOrderDTO;
 import com.otica_system.service.serviceorder.ServiceOrderService;
 import jakarta.validation.Valid;
@@ -57,5 +58,17 @@ public class ServiceOrderController {
     public ResponseEntity<List<ServiceOrder>> findByCpf(@RequestParam String cpf) {
         List<ServiceOrder> result = service.findByCpf(cpf);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/crm-summaries")
+    public ResponseEntity<List<CustomerCrmSummaryDTO>> findCustomerCrmSummaries() {
+        List<CustomerCrmSummaryDTO> summaries = service.findCustomerCrmSummaries();
+        return ResponseEntity.ok(summaries);
+    }
+
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<ServiceOrder>> findByCustomerId(@PathVariable Long customerId) {
+        List<ServiceOrder> orders = service.findByCustomerId(customerId);
+        return ResponseEntity.ok(orders);
     }
 }

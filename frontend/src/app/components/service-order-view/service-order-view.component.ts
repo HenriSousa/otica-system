@@ -41,6 +41,13 @@ export class ServiceOrderViewComponent implements OnInit {
       next: order => {
         this.order = order;
         this.loading = false;
+
+        const pdfType = this.route.snapshot.queryParamMap.get('pdf');
+        if (pdfType === 'client') {
+          setTimeout(() => this.openPdfClient(), 150);
+        } else if (pdfType === 'laboratory') {
+          setTimeout(() => this.openPdfLaboratory(), 150);
+        }
       },
       error: () => {
         this.errorMessage = 'Não foi possível carregar a ordem de serviço.';

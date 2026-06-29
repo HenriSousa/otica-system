@@ -283,6 +283,13 @@ DELETE /api/service-orders/{id}
 - ✅ PDF generation - Cliente (A4) for customer delivery
 - ✅ PDF generation - Laboratório (A5) for laboratory production
 
+### CRM Module V1
+- ✅ CRM dashboard with searchable customer list
+- ✅ Customer profile with commercial data
+- ✅ Customer statistics calculated from existing service orders
+- ✅ Service order history with view and PDF actions
+- ✅ WhatsApp integration via WhatsApp Web with pre-filled message
+
 ### Business Rules
 - Name is required
 - Phone is required
@@ -382,7 +389,7 @@ npm run build
 
 - [x] Customer Management Module
 - [x] Service Order Module with PDF generation
-- [ ] CRM Module (Customer relationship management)
+- [x] CRM Module V1 (Customer relationship management)
 - [ ] Purchase Order Module (Inventory integration)
 - [ ] Inventory Module (Stock management, suppliers)
 - [ ] Financial Module (Payments, accounting)

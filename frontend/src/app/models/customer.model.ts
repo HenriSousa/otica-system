@@ -3,7 +3,7 @@ export interface Customer {
   name: string;
   phone: string;
   cpf: string;
-  birthDate?: Date;
+  birthDate?: string;
   address: string;
   neighborhood?: string;
   referencePoint?: string;

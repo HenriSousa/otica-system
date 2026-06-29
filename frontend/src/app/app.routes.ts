@@ -4,6 +4,8 @@ import { CustomerFormComponent } from './components/customer-form/customer-form.
 import { ServiceOrderListComponent } from './components/service-order-list/service-order-list.component';
 import { ServiceOrderFormComponent } from './components/service-order-form/service-order-form.component';
 import { ServiceOrderViewComponent } from './components/service-order-view/service-order-view.component';
+import { CrmHomeComponent } from './components/crm-home/crm-home.component';
+import { CrmCustomerComponent } from './components/crm-customer/crm-customer.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/customers', pathMatch: 'full' },
@@ -14,5 +16,7 @@ export const routes: Routes = [
   { path: 'service-orders/new', component: ServiceOrderFormComponent },
   { path: 'service-orders/:id/view', component: ServiceOrderViewComponent },
   { path: 'service-orders/:id/edit', component: ServiceOrderFormComponent },
+  { path: 'crm', component: CrmHomeComponent },
+  { path: 'crm/customers/:id', component: CrmCustomerComponent },
   { path: '**', redirectTo: '/customers' }
 ];

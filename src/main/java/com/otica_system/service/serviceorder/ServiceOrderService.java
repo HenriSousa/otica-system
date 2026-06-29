@@ -2,6 +2,7 @@ package com.otica_system.service.serviceorder;
 
 import com.otica_system.domain.serviceorder.ServiceOrder;
 import com.otica_system.dto.serviceorder.CreateServiceOrderDTO;
+import com.otica_system.dto.serviceorder.CustomerCrmSummaryDTO;
 import com.otica_system.dto.serviceorder.UpdateServiceOrderDTO;
 
 import java.util.List;
@@ -14,6 +15,10 @@ public interface ServiceOrderService {
     Optional<ServiceOrder> findById(Long id);
 
     List<ServiceOrder> findByCpf(String cpf);
+
+    List<ServiceOrder> findByCustomerId(Long customerId);
+
+    List<CustomerCrmSummaryDTO> findCustomerCrmSummaries();
 
     ServiceOrder save(CreateServiceOrderDTO createServiceOrderDTO);
 

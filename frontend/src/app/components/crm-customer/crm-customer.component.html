@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="header">
+    <div>
+      <h1>CRM do Cliente</h1>
+      <p>Perfil comercial e histórico de ordens de serviço.</p>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn btn-secondary" (click)="openWhatsApp()">Abrir WhatsApp</button>
+      <a routerLink="/crm" class="btn btn-secondary">Voltar</a>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+  <div *ngIf="loading" class="loading">Carregando perfil do cliente...</div>
+
+  <div *ngIf="customer && !loading" class="crm-layout">
+    <section class="card">
+      <div class="section-title">
+        <h2>Dados do Cliente</h2>
+      </div>
+      <div class="field-grid">
+        <div class="field-item">
+          <label>Nome</label>
+          <span>{{ customer.name }}</span>
+        </div>
+        <div class="field-item">
+          <label>CPF</label>
+          <span>{{ customer.cpf }}</span>
+        </div>
+        <div class="field-item">
+          <label>Telefone</label>
+          <span>{{ customer.phone }}</span>
+        </div>
+        <div class="field-item">
+          <label>Data de nascimento</label>
+          <span>{{ customer.birthDate || '—' }}</span>
+        </div>
+        <div class="field-item">
+          <label>Endereço</label>
+          <span>{{ customer.address }}</span>
+        </div>
+        <div class="field-item">
+          <label>Bairro</label>
+          <span>{{ customer.neighborhood || '—' }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card statistics-card">
+      <div class="section-title">
+        <h2>Estatísticas do Cliente</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <label>Total de Ordens de Serviço</label>
+          <strong>{{ totalOrders }}</strong>
+        </div>
+        <div class="stat-item">
+          <label>Valor Total Gasto</label>
+          <strong>{{ formatCurrency(totalSpent) }}</strong>
+        </div>
+        <div class="stat-item">
+          <label>Ticket Médio</label>
+          <strong>{{ formatCurrency(averageTicket) }}</strong>
+        </div>
+        <div class="stat-item">
+          <label>Última Compra</label>
+          <strong>{{ lastPurchase }}</strong>
+        </div>
+        <div class="stat-item">
+          <label>Cliente desde</label>
+          <strong>{{ clientSince }}</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-title">
+        <h2>Histórico de Ordens de Serviço</h2>
+      </div>
+      <div *ngIf="orders.length === 0" class="no-data">Nenhuma ordem de serviço encontrada.</div>
+      <div *ngIf="orders.length > 0" class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Número OS</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th>Valor Total</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td>#{{ order.id }}</td>
+              <td>{{ order.issueDate || '—' }}</td>
+              <td>{{ order.status || '—' }}</td>
+              <td>{{ formatCurrency(order.totalValue) }}</td>
+              <td>
+                <button type="button" class="btn btn-secondary" (click)="viewOrder(order.id)">Visualizar</button>
+                <button type="button" class="btn btn-secondary" (click)="downloadClientPdf(order.id)">PDF Cliente</button>
+                <button type="button" class="btn btn-secondary" (click)="downloadLaboratoryPdf(order.id)">PDF Laboratório</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

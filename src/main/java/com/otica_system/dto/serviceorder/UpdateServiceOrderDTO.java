@@ -24,7 +24,6 @@ public class UpdateServiceOrderDTO {
     @NotBlank(message = "CPF do cliente é obrigatório")
     private String customerCpf;
 
-    private String customerRg;
     private LocalDate customerBirthDate;
 
     @NotBlank(message = "Endereço do cliente é obrigatório")
@@ -102,14 +101,6 @@ public class UpdateServiceOrderDTO {
 
     public void setCustomerCpf(String customerCpf) {
         this.customerCpf = customerCpf;
-    }
-
-    public String getCustomerRg() {
-        return customerRg;
-    }
-
-    public void setCustomerRg(String customerRg) {
-        this.customerRg = customerRg;
     }
 
     public LocalDate getCustomerBirthDate() {

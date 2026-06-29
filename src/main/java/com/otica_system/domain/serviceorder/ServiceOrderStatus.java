@@ -5,5 +5,12 @@ public enum ServiceOrderStatus {
     IN_PROGRESS,
     READY,
     DELIVERED,
-    CANCELED
+    CANCELED, 
+    WAITING_LABORATORY, 
+    EM_ABERTO, 
+    EM_ANDAMENTO, 
+    AGUARDANDO_LABORATORIO, 
+    PRONTO, 
+    ENTREGUE, 
+    CANCELADO
 }

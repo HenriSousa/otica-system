@@ -4,7 +4,6 @@ export interface ServiceOrder {
   customerName?: string;
   customerPhone?: string;
   customerCpf?: string;
-  customerRg?: string;
   customerBirthDate?: string;
   customerAddress?: string;
   customerNeighborhood?: string;

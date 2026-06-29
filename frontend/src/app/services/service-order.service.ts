@@ -3,6 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServiceOrder } from '../models/service-order.model';
 
+export interface CustomerCrmSummary {
+  customerId: number;
+  customerName: string;
+  customerPhone: string;
+  customerCpf: string;
+  totalOrders: number;
+  totalSpent: number;
+  lastIssueDate?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +33,14 @@ export class ServiceOrderService {
 
   findByCpf(cpf: string): Observable<ServiceOrder[]> {
     return this.http.get<ServiceOrder[]>(`${this.apiUrl}/cpf`, { params: { cpf } });
+  }
+
+  findCrmSummaries(): Observable<CustomerCrmSummary[]> {
+    return this.http.get<CustomerCrmSummary[]>(`${this.apiUrl}/crm-summaries`);
+  }
+
+  findByCustomerId(customerId: number): Observable<ServiceOrder[]> {
+    return this.http.get<ServiceOrder[]>(`${this.apiUrl}/customer/${customerId}`);
   }
 
   create(order: ServiceOrder): Observable<ServiceOrder> {

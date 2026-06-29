@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="header">
+    <div>
+      <h1>CRM</h1>
+      <p>Visão comercial e histórico de relacionamento do cliente.</p>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+  <div *ngIf="loading" class="loading">Carregando CRM...</div>
+
+  <section *ngIf="!loading" class="card">
+    <div class="filters">
+      <div class="filter-group">
+        <label>Nome</label>
+        <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="applyFilters()" placeholder="Filtrar por nome" />
+      </div>
+      <div class="filter-group">
+        <label>CPF</label>
+        <input type="text" [(ngModel)]="cpfFilter" (ngModelChange)="applyFilters()" placeholder="Filtrar por CPF" />
+      </div>
+      <div class="filter-group">
+        <label>Telefone</label>
+        <input type="text" [(ngModel)]="phoneFilter" (ngModelChange)="applyFilters()" placeholder="Filtrar por telefone" />
+      </div>
+      <div class="filter-actions">
+        <button type="button" class="btn btn-secondary" (click)="clearFilters()">Limpar</button>
+      </div>
+    </div>
+
+    <div *ngIf="customers.length === 0" class="no-data">Nenhum cliente encontrado.</div>
+
+    <div *ngIf="customers.length > 0" class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Última Ordem de Serviço</th>
+            <th>Total de OS</th>
+            <th>Valor Total Gasto</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of customers">
+            <td>{{ item.customer.name }}</td>
+            <td>{{ item.customer.phone }}</td>
+            <td>{{ item.lastOrderLabel }}</td>
+            <td>{{ item.totalOrders }}</td>
+            <td>{{ formatCurrency(item.totalSpent) }}</td>
+            <td>
+              <button type="button" class="btn btn-primary" (click)="openCrm(item.customer.id)">Abrir CRM</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
