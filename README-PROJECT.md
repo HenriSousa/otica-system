@@ -6,6 +6,11 @@ A comprehensive Point of Sale (POS) system designed for optical stores, built wi
 
 Ótica System is a scalable web-based POS solution following SOLID principles, Domain-Driven Design (DDD), and Clean Architecture. Currently implemented is the **Customer Management Module** with plans for future expansion including CRM, Order Service, Inventory Management, Financial Management, Reports, and Multi-store support.
 
+### Recent CRM UX Improvements
+- Refined the CRM customers table with clearer badges for Novo, Recorrente, VIP and Inativo.
+- Improved filters, empty states and financial alignment in the customer list.
+- Added breadcrumb navigation and tooltip support for disabled sidebar items.
+
 ## 📋 Architecture
 
 ### Backend Stack
@@ -241,6 +246,31 @@ Content-Type: application/json
 DELETE /api/service-orders/{id}
 ```
 
+### CRM Dashboard Endpoint
+#### Get CRM Dashboard Metrics
+```http
+GET /api/crm/dashboard
+```
+
+Response example:
+```json
+{
+  "totalClients": 120,
+  "totalServiceOrders": 320,
+  "totalRevenue": 14500.50,
+  "averageTicket": 45.31,
+  "vipClients": 20,
+  "newClients": 12,
+  "inactiveClients": 28,
+  "birthdaysThisMonth": 8,
+  "waitingLaboratoryOrders": 17,
+  "awaitingPickupOrders": 9
+}
+```
+
+### Frontend CRM Routes
+- `GET /crm` - CRM comercial e histórico de clientes
+- `GET /crm/dashboard` - Dashboard gerencial com métricas agregadas do negócio
 
 ### Backend
 - **Domain-Driven Design (DDD)** - Domain entities and business logic separation
@@ -289,6 +319,56 @@ DELETE /api/service-orders/{id}
 - ✅ Customer statistics calculated from existing service orders
 - ✅ Service order history with view and PDF actions
 - ✅ WhatsApp integration via WhatsApp Web with pre-filled message
+
+### CRM V2 Dashboard (Gerencial)
+- ✅ CRM consolidado em uma única entrada principal via rota `/crm`
+- ✅ Dashboard reorganizado em blocos de indicadores, perfil do cliente e operacional
+- ✅ Card de clientes recorrentes adicionado com cálculo baseado em ordens reais
+- ✅ Navegação simplificada, sem tela duplicada de CRM Dashboard
+
+### CRM V2 Dashboard (Gerencial)
+- ✅ Backend aggregation endpoint `/api/crm/dashboard` returning consolidated business metrics
+- ✅ Frontend `crm-dashboard` component consuming the dashboard API and offering quick navigation to CRM views and filtered service-orders
+
+**Backend changes (new / updated)**
+- `src/main/java/com/otica_system/dto/serviceorder/CrmDashboardDTO.java` — DTO with dashboard metrics
+- `src/main/java/com/otica_system/repository/crm/CrmDashboardRepository.java` — repository interface
+- `src/main/java/com/otica_system/repository/crm/CrmDashboardRepositoryImpl.java` — native query implementation
+- `src/main/java/com/otica_system/service/crm/CrmDashboardService.java` — service interface
+- `src/main/java/com/otica_system/service/crm/impl/CrmDashboardServiceImpl.java` — service implementation
+- `src/main/java/com/otica_system/controller/crm/CrmDashboardController.java` — REST controller exposing `GET /api/crm/dashboard`
+
+**Frontend changes (new / updated)**
+- `frontend/src/app/services/crm.service.ts` — Angular service `CrmService` and `CrmDashboardMetrics` interface
+- `frontend/src/app/components/crm-dashboard/crm-dashboard.component.ts` — dashboard component logic
+- `frontend/src/app/components/crm-dashboard/crm-dashboard.component.html` — dashboard template
+- `frontend/src/app/components/crm-dashboard/crm-dashboard.component.scss` — dashboard styles
+- `frontend/src/app/app.routes.ts` — added route `/crm/dashboard`
+- `frontend/src/app/app.component.html` — added navigation link to CRM Dashboard
+- `frontend/src/app/components/crm-home/crm-home.component.html` — added quick access to dashboard
+
+These changes follow DDD and keep the dashboard aggregation on the backend to avoid N+1 problems and client-side inaccuracies.
+
+**Example: dashboard endpoint**
+```http
+GET /api/crm/dashboard
+```
+
+Response example:
+```json
+{
+  "totalClients": 120,
+  "totalServiceOrders": 320,
+  "totalRevenue": 14500.50,
+  "averageTicket": 45.31,
+  "vipClients": 20,
+  "newClients": 12,
+  "inactiveClients": 28,
+  "birthdaysThisMonth": 8,
+  "waitingLaboratoryOrders": 17,
+  "awaitingPickupOrders": 9
+}
+```
 
 ### Business Rules
 - Name is required

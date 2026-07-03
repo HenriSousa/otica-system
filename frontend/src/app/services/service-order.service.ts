@@ -11,6 +11,7 @@ export interface CustomerCrmSummary {
   totalOrders: number;
   totalSpent: number;
   lastIssueDate?: string;
+  category?: string;
 }
 
 @Injectable({

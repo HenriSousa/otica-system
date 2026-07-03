@@ -1,0 +1,45 @@
+<div class="crm-shell">
+  <aside class="crm-sidebar">
+    <div class="brand">
+      <div class="brand-icon">🕶️</div>
+      <div>
+        <h2>CRM</h2>
+        <p>Ótica System</p>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a
+        *ngFor="let item of navItems"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        [class.disabled]="item.disabled"
+        [attr.aria-disabled]="item.disabled ? 'true' : null"
+        [attr.title]="item.disabled ? 'Em desenvolvimento' : null"
+      >
+        <span class="nav-icon">{{ item.icon }}</span>
+        <span>{{ item.label }}</span>
+      </a>
+    </nav>
+  </aside>
+
+  <div class="crm-content">
+    <header class="crm-header">
+      <div class="header-copy">
+        <p class="eyebrow">Módulo comercial</p>
+        <h1>Gestão de relacionamento</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a routerLink="/crm/dashboard">CRM</a>
+          <span>/</span>
+          <span>{{ currentPageLabel }}</span>
+        </nav>
+      </div>
+      <a routerLink="/" class="back-link">Voltar ao início</a>
+    </header>
+
+    <main class="crm-main">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

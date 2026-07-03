@@ -12,6 +12,7 @@ public class CustomerCrmSummaryDTO {
     private Long totalOrders;
     private BigDecimal totalSpent;
     private LocalDate lastIssueDate;
+    private String category;
 
     public CustomerCrmSummaryDTO() {
     }
@@ -24,6 +25,14 @@ public class CustomerCrmSummaryDTO {
         this.totalOrders = totalOrders;
         this.totalSpent = totalSpent;
         this.lastIssueDate = lastIssueDate;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Long getCustomerId() {

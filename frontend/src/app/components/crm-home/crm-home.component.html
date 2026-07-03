@@ -1,34 +1,38 @@
 <div class="container">
   <div class="header">
     <div>
-      <h1>CRM</h1>
+      <h1>Clientes</h1>
       <p>Visão comercial e histórico de relacionamento do cliente.</p>
     </div>
   </div>
 
   <div *ngIf="error" class="error-message">{{ error }}</div>
-  <div *ngIf="loading" class="loading">Carregando CRM...</div>
+  <div *ngIf="loading" class="loading">Carregando clientes...</div>
 
   <section *ngIf="!loading" class="card">
     <div class="filters">
       <div class="filter-group">
         <label>Nome</label>
-        <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="applyFilters()" placeholder="Filtrar por nome" />
+        <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="applyFilters()" placeholder="Pesquisar cliente..." />
       </div>
       <div class="filter-group">
         <label>CPF</label>
-        <input type="text" [(ngModel)]="cpfFilter" (ngModelChange)="applyFilters()" placeholder="Filtrar por CPF" />
+        <input type="text" [(ngModel)]="cpfFilter" (ngModelChange)="applyFilters()" placeholder="Pesquisar CPF..." />
       </div>
       <div class="filter-group">
         <label>Telefone</label>
-        <input type="text" [(ngModel)]="phoneFilter" (ngModelChange)="applyFilters()" placeholder="Filtrar por telefone" />
+        <input type="text" [(ngModel)]="phoneFilter" (ngModelChange)="applyFilters()" placeholder="Pesquisar telefone..." />
       </div>
       <div class="filter-actions">
         <button type="button" class="btn btn-secondary" (click)="clearFilters()">Limpar</button>
       </div>
     </div>
 
-    <div *ngIf="customers.length === 0" class="no-data">Nenhum cliente encontrado.</div>
+    <div *ngIf="customers.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>Nenhum cliente encontrado.</h3>
+      <p>Não há clientes para exibir com os filtros aplicados.</p>
+    </div>
 
     <div *ngIf="customers.length > 0" class="table-responsive">
       <table class="table">
@@ -36,10 +40,11 @@
           <tr>
             <th>Nome</th>
             <th>Telefone</th>
-            <th>Última Ordem de Serviço</th>
+            <th>Última Ordem</th>
             <th>Total de OS</th>
-            <th>Valor Total Gasto</th>
-            <th>Ações</th>
+            <th>Categoria</th>
+            <th class="text-right">Valor Total Gasto</th>
+            <th class="text-right">Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -48,9 +53,12 @@
             <td>{{ item.customer.phone }}</td>
             <td>{{ item.lastOrderLabel }}</td>
             <td>{{ item.totalOrders }}</td>
-            <td>{{ formatCurrency(item.totalSpent) }}</td>
             <td>
-              <button type="button" class="btn btn-primary" (click)="openCrm(item.customer.id)">Abrir CRM</button>
+              <span class="category-badge" [ngClass]="getCategoryClass(item.category)">{{ item.category }}</span>
+            </td>
+            <td class="text-right">{{ formatCurrency(item.totalSpent) }}</td>
+            <td class="text-right">
+              <button type="button" class="btn btn-primary" (click)="openCrm(item.customer.id)">Visualizar</button>
             </td>
           </tr>
         </tbody>

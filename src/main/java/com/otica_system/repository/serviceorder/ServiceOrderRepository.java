@@ -1,6 +1,7 @@
 package com.otica_system.repository.serviceorder;
 
 import com.otica_system.domain.serviceorder.ServiceOrder;
+import com.otica_system.dto.serviceorder.CrmDashboardDTO;
 import com.otica_system.dto.serviceorder.CustomerCrmSummaryDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,5 @@ public interface ServiceOrderRepository extends JpaRepository<ServiceOrder, Long
             "group by c.id, c.name, c.phone, c.cpf " +
             "order by c.name")
     List<CustomerCrmSummaryDTO> findCustomerCrmSummaries();
+
 }

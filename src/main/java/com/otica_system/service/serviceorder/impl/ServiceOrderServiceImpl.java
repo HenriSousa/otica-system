@@ -8,6 +8,7 @@ import com.otica_system.dto.serviceorder.UpdateServiceOrderDTO;
 import com.otica_system.exception.ResourceNotFoundException;
 import com.otica_system.repository.customer.CustomerRepository;
 import com.otica_system.repository.serviceorder.ServiceOrderRepository;
+import com.otica_system.service.crm.CustomerClassificationService;
 import com.otica_system.service.serviceorder.ServiceOrderService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +22,12 @@ public class ServiceOrderServiceImpl implements ServiceOrderService {
 
     private final ServiceOrderRepository repository;
     private final CustomerRepository customerRepository;
+    private final CustomerClassificationService classificationService;
 
-    public ServiceOrderServiceImpl(ServiceOrderRepository repository, CustomerRepository customerRepository) {
+    public ServiceOrderServiceImpl(ServiceOrderRepository repository, CustomerRepository customerRepository, CustomerClassificationService classificationService) {
         this.repository = repository;
         this.customerRepository = customerRepository;
+        this.classificationService = classificationService;
     }
 
     @Override
@@ -54,7 +57,9 @@ public class ServiceOrderServiceImpl implements ServiceOrderService {
     @Override
     @Transactional(readOnly = true)
     public List<CustomerCrmSummaryDTO> findCustomerCrmSummaries() {
-        return repository.findCustomerCrmSummaries();
+        List<CustomerCrmSummaryDTO> summaries = repository.findCustomerCrmSummaries();
+        summaries.forEach(summary -> summary.setCategory(classificationService.classify(summary).toString()));
+        return summaries;
     }
 
     @Override

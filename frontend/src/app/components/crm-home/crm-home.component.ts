@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Customer } from '../../models/customer.model';
-import { CustomerCrmSummary } from '../../services/service-order.service';
-import { ServiceOrder } from '../../models/service-order.model';
 import { ServiceOrderService } from '../../services/service-order.service';
+
+type CustomerCategory = 'Novo' | 'Recorrente' | 'VIP' | 'Inativo';
 
 interface CustomerCrmSummaryView {
   customer: Customer;
   totalOrders: number;
   totalSpent: number;
   lastOrderLabel: string;
+  category: CustomerCategory;
 }
 
 @Component({
@@ -46,22 +47,23 @@ export class CrmHomeComponent implements OnInit {
 
     this.serviceOrderService.findCrmSummaries().subscribe({
       next: (summaries) => {
-        this.allCustomers = summaries.map((summary) => ({
-          customer: {
-            id: summary.customerId,
-            name: summary.customerName,
-            phone: summary.customerPhone,
-            cpf: summary.customerCpf,
-            address: '',
-            neighborhood: '',
-            referencePoint: ''
-          },
-          totalOrders: summary.totalOrders,
-          totalSpent: summary.totalSpent,
-          lastOrderLabel: summary.lastIssueDate
-            ? `Última OS · ${summary.lastIssueDate}`
-            : 'Sem ordens'
-        }));
+        this.allCustomers = summaries
+          .map((summary) => ({
+            customer: {
+              id: summary.customerId,
+              name: summary.customerName,
+              phone: summary.customerPhone,
+              cpf: summary.customerCpf,
+              address: '',
+              neighborhood: '',
+              referencePoint: ''
+            },
+            totalOrders: summary.totalOrders,
+            totalSpent: summary.totalSpent,
+            lastOrderLabel: this.formatDate(summary.lastIssueDate),
+            category: (summary.category as CustomerCategory) || 'Novo'
+          }))
+          .sort((a, b) => a.customer.name.localeCompare(b.customer.name));
         this.applyFilters();
         this.loading = false;
       },
@@ -106,29 +108,34 @@ export class CrmHomeComponent implements OnInit {
     }).format(value || 0);
   }
 
-  private buildSummaries(customers: Customer[], orders: ServiceOrder[]): CustomerCrmSummaryView[] {
-    return customers
-      .map((customer) => {
-        const customerOrders = orders.filter((order) => String(order.customerId) === String(customer.id));
-        const totalOrders = customerOrders.length;
-        const totalSpent = customerOrders.reduce((sum, order) => sum + (order.totalValue || 0), 0);
-        const lastOrder = [...customerOrders].sort((a, b) => this.getOrderDateValue(b) - this.getOrderDateValue(a))[0];
+  formatDate(value?: string): string {
+    if (!value) {
+      return 'Sem movimentação';
+    }
 
-        return {
-          customer,
-          totalOrders,
-          totalSpent,
-          lastOrderLabel: lastOrder
-            ? `OS #${lastOrder.id ?? '—'} · ${lastOrder.issueDate || '—'}`
-            : 'Sem ordens'
-        };
-      })
-      .sort((a, b) => a.customer.name.localeCompare(b.customer.name));
+    const parsedDate = new Date(value);
+    if (Number.isNaN(parsedDate.getTime())) {
+      return 'Sem movimentação';
+    }
+
+    return new Intl.DateTimeFormat('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }).format(parsedDate);
   }
 
-  private getOrderDateValue(order: ServiceOrder): number {
-    const rawDate = order.issueDate || order.deliveryDate || '';
-    const date = new Date(rawDate);
-    return Number.isNaN(date.getTime()) ? 0 : date.getTime();
+  getCategoryClass(category: CustomerCategory): string {
+    switch (category) {
+      case 'Recorrente':
+        return 'recorrente';
+      case 'VIP':
+        return 'vip';
+      case 'Inativo':
+        return 'inativo';
+      default:
+        return 'novo';
+    }
   }
+
 }
